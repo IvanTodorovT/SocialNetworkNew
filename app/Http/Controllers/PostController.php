@@ -88,11 +88,14 @@ class PostController extends Controller
     public function listAll2($user_id){
     
     	$user = DB::table('users2')->where('id', '=', $user_id)->first();
-    	 
+        $followers_count = count(Auth::user()->getFollowers());
+        $followings_count = count(Auth::user()->getFollowings());
     	$data = array (
-    			'user' => $user
+    			'user' => $user,
+                'followers_count' => $followers_count,
+                'followings_count' => $followings_count
     	);
-    	 
+
     
     	 
     	return view('profile_preview', $data);

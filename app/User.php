@@ -51,6 +51,13 @@ class User extends Authenticatable
     	->pluck('friend_id')->toArray();
     	return $followers_ids;
     }
+    public function getFollowingsIds(){
+        $followings_ids = DB::table('users_friends')
+            ->distinct('friend_id')
+            ->where('friend_id',$this->id)
+            ->pluck('user_id')->toArray();
+        return $followings_ids;
+    }
     
     public static function getMatched($findme){
     	$users = User::where(function($query) use($findme){
@@ -64,5 +71,31 @@ class User extends Authenticatable
     	})
     	->get();
     	return $users;
+    }
+
+
+    public function getFollowers(){
+        $followers_ids = DB::table('users_friends')
+            ->distinct('friend_id')
+            ->where('user_id',$this->id)
+            ->pluck('friend_id')->toArray();
+
+        $users = DB::table('users2')
+            ->whereIn('id', $followers_ids)
+            ->get();
+
+        return $users;
+    }
+
+    public function getFollowings(){
+        $followings_ids = DB::table('users_friends')
+            ->distinct('friend_id')
+            ->where('friend_id',$this->id)
+            ->pluck('user_id')->toArray();
+
+        $users = DB::table('users2')
+            ->whereIn('id', $followings_ids)
+            ->get();
+        return $users;
     }
 }

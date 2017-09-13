@@ -1,6 +1,10 @@
-
+<div id="qha">
 <div id='up-frm-msg'></div>
-<form method='post' enctype="multipart/form-data">
+<form method='post' enctype="multipart/form-data" action="post.test" id="myForm">
+
+		<input type="hidden" name="longitude" id="longitude">
+		<input type="hidden" name="latitude" id="latitude">
+
 <!-- <form action='upload' method="post" enctype="multipart/form-data"> -->
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
    	<div>
@@ -26,7 +30,7 @@ $albums = DB::table('albums')->get();
     @endforeach
 </select> <p style="display: inline;"> or </p><a style="display: inline;" href="createAlbum"> Create new album</a>
 </div><br />
-		
+	
 	<div>
 		<p> Would you like to select tags for your photo? </p>
 		<select id='tag1' name='tag1'>
@@ -39,13 +43,16 @@ $albums = DB::table('albums')->get();
 			<?= $options?>
 		</select>
 	</div><br />
-	<input type="submit">
+	<input type="submit" ">
 	<input type="hidden" name="_token" value="{{ csrf_token() }}">
 </form>
+</div>
 
 <script>
+    getLocation();
 $(function (){
 	$("form").submit(function(e) {
+
 
 	    var formData = new FormData($(this)[0]);
 
@@ -67,4 +74,43 @@ $(function (){
 	    e.preventDefault();
 	});
 });
+
+
+
+
+
+
+
+
+function getLocation()
+{
+    if (navigator.geolocation)
+    {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    }
+    else{x.innerHTML="Geolocation is not supported by this browser.";}
+}
+
+function showPosition(position)
+{
+    document.getElementById("latitude").value = position.coords.latitude;
+    document.getElementById("longitude").value = position.coords.longitude;
+
+    var x=document.getElementById("latitude");
+    var y=document.getElementById("longitude");
+    x.innerHTML="Latitude: " + position.coords.latitude;
+    y.innerHTML= "Longitude: " + position.coords.longitude;
+}
+
+
 </script>
+
+<style>
+	#uploadForm{
+
+		margin-top: -128.6em;
+		margin-right: 20em;
+		width: 53em;!important;
+
+	}
+</style>

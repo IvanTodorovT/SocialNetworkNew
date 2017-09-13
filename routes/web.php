@@ -9,16 +9,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
- Route::get('/home', 'HomeController@profile');
-// Auth::routes(); 
+ Route::get('/home', ['as'=>'home.show','uses'=>'HomeController@profile']);
+// Auth::routes();
+Route::get('/password/test2', 'ResetPasswordController@index');
+Route::post('/password/test', 'ResetPasswordController@sendEmailReminder');
 
 Route::group(['middleware'=>'auth'],function(){
 	Route::get('/profile', ['as'=>'profile.show','uses'=>'HomeController@profile']);
 	
 	Route::post('/follow}',['as'=>'user.follow','uses'=>'FollowController@follow']);
 	Route::post('/unfollow',['as'=>'user.unfollow','uses'=>'FollowController@unfollow']);
+    Route::post('/deleteFollowing}',['as'=>'user.deleteFollowing','uses'=>'FollowController@deleteFollowing']);
 	
 	Route::post('/post',['as'=>'post.submit','uses'=>'PostController@submit']);
 	
@@ -27,8 +31,18 @@ Route::group(['middleware'=>'auth'],function(){
  
  Route::get('/post/{post_id}',['as'=>'post.test','uses'=>'PostController@show']);
 
+/*Route::get('get-ip-details', function () {
+    $ip = '87.126.170.169';
+    $data = \Location::get($ip);
 
-	
+    $location = file_get_contents('http://freegeoip.net/json/'.$_SERVER['REMOTE_ADDR']);
+
+});*/
+
+    Route::get('/ip',['as'=>'post.test','uses'=>'UploadProfileController@getLocation']);
+
+
+
 	
 /* 
 	  	Route::get('search', function () {
@@ -53,6 +67,9 @@ Route::post('/upload', 'UploadController@uploadFiles');
 
 Route::get('/upload2', 'UploadProfileController@uploadForm');
 Route::post('/upload2', 'UploadProfileController@uploadFiles');
+Route::get('/change_pass', 'UploadProfileController@changePassword');
+Route::get('/baba', 'UploadProfileController@changePassword2');
+Route::get('/change_pass33', ['as' => 'change_pass33', 'uses' => 'UploadProfileController@changePassword3']);
 
 /**
  * Liking
@@ -96,8 +113,9 @@ Route::get('/search',['as'=>'search.test','uses'=>'SearchController@show']);
 	Route::get('/profile_preview', function () {
 		 return view('profile_preview');
 	});
-	
-	
+
+Route::get('/followers','FollowController@showFollowers');
+Route::get('/followings','FollowController@showFollowings');
 	
 Route::get('/profile_preview/{user_id}',['as'=>'edit.test','uses'=>'PostController@listAll2']);
 	

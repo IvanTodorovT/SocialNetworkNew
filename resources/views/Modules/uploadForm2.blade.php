@@ -20,7 +20,6 @@ $options = Tags::getDropDownOptions();
    	<div>
    	<label style="margin-top:1em;margin-left:7em; for="name">Enter name of album:</label>
    	<input type="text" name="name"/><br /><br />
-   
    	</div>
 		<div >
 	        <textarea style="margin-top:1em;margin-left:10.8em;" rows="5" cols="50" name='text' placeholder='Add description to your album..'></textarea><br /><br />

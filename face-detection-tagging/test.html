@@ -1,0 +1,312 @@
+<html>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	 <link media="all" type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+	 <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMAGE TAGGING</title>
+<body>
+
+
+<input type="file" name="myFileSelect" />
+
+
+<script>// Bind to the change event of our file input
+$("input[name='myFileSelect']").on("change", function(){
+
+    // Get a reference to the fileList
+    var files = !!this.files ? this.files : [];
+
+    // If no files were selected, or no FileReader support, return
+    if ( !files.length || !window.FileReader ) return;
+
+    // Only proceed if the selected file is an image
+    if ( /^image/.test( files[0].type ) ) {
+
+        // Create a new instance of the FileReader
+        var reader = new FileReader();
+
+        // Read the local file as a DataURL
+        reader.readAsDataURL( files[0] );
+
+        // When loaded, set image data as background of page
+        reader.onloadend = function(){
+
+            $("#pointer_div").css("background-image", "url(" + this.result + ")");
+
+        }
+
+    }
+
+});</script>
+
+
+
+<center>
+    <div id="container" style="width:800px">
+        <div id="header" style="background-color:#FFA500;">
+            <h1 style="margin-bottom:0;">Tag Your Friends</h1>
+        </div>
+
+
+
+
+
+
+
+        <div id="content" style="background-color:#EEEEEE; height:450px; width:800px; float:left;">
+            <div style="color:gray">
+                <center>
+                    <div id="pointer_div" class="pointer_div" onclick="myFunction(event)" id="test" src="#" alt="your image" class="findface" style = "width:500px;height:450px;">
+                        <?php
+              $filetxt = 'data/data.txt';
+              if(file_exists($filetxt))
+              {
+                $jsondata = file_get_contents($filetxt);
+
+                $arr_data = json_decode($jsondata, true);
+                $length=sizeof($arr_data);
+                $i=0;
+                while ( $i< $length)
+                {
+
+                  ?>
+                        <div class="store" id="<?php echo $arr_data[$i]['youname'];?>" data-y="<?php echo $arr_data[$i]['x'];?>" data-x="<?php echo $arr_data[$i]['y'];?>" style="top:<?php echo $arr_data[$i]['x'];?>px; left:<?php echo $arr_data[$i]['y'];?>px; position:absolute; width:100px; height:100px; border:3px solid gray" ><?php echo $arr_data[$i]['youname'];?></div>
+                        <?php
+                  $i++;
+                }
+
+              }
+              else echo 'The file '. $filetxt .' not exists';
+            ?>
+                    </div>
+                </center>
+            </div>
+        </div>
+        <div id="planetmap">
+        </div>
+        <div id='form_panel'>
+            <div class='row'>
+                <form  id ="saveform">
+                    <div class='label' id='label'>Title</div>
+                    <div class='field' id='field'>
+                        <input type='text' id='title' name='title' />
+                    </div>
+                    <input type='button' value='Add Tag' id='addTag'/><!-- <input type='button' value='Cancel' onclick='cancel()' id='cancel'/> -->
+                </form>
+            </div>
+        </div>
+        <div class = "overshow" id = "overshow" style="color:red;"></div>
+        <div id="footer" style="background-color:#ADFF85; clear:both; text-align:center;" >
+            <h3>Your Friends Here: </h3>
+            <div id="demo" >
+                <?php
+              $filetxt = 'data/data.txt';
+              if(file_exists($filetxt))
+              {
+                $jsondata = file_get_contents($filetxt);
+
+                $arr_data = json_decode($jsondata, true);
+                $length=sizeof($arr_data);
+                $i=0;
+                while ( $i< $length)
+                {
+
+                  ?>
+                <span class="tags" id="<?php echo $arr_data[$i]['youname'];?>" data-y="<?php echo $arr_data[$i]['x'];?>" data-x="<?php echo $arr_data[$i]['y'];?>" ><?php echo $arr_data[$i]['youname'];?><span class="del" id="<?php echo $arr_data[$i]['youname'];?>" style="color:red">X</span></span>
+                <?php
+                  $i++;
+                }
+
+              }
+              else echo 'The file '. $filetxt .' not exists';
+            ?>
+            </div>
+        </div>
+    </div>
+</center>
+
+
+
+<script>
+    var x_pos;
+    var y_pos;
+    function myFunction(e)  // called when click on image to create span and textbox
+    {
+        $("#title").val("");
+        pos_x = event.offsetX?(event.offsetX):event.pageX-document.getElementById("pointer_div").offsetLeft;
+        pos_y = event.offsetY?(event.offsetY):event.pageY-document.getElementById("pointer_div").offsetTop;
+        x_pos = event.pageX;
+        y_pos = event.pageY;
+        x_pos = x_pos - 50;
+        y_pos = y_pos - 50;
+        var element = document.createElement('div');
+        element.id = "someID";
+        document.body.appendChild(element);
+        document.getElementById('someID').style.width='100px';
+        document.getElementById('someID').style.height='100px';
+        document.getElementById('someID').style.background='transparent';
+        document.getElementById('someID').style.border='thick solid #0000FF';
+        document.getElementById('someID').style.position = "absolute";
+        x = document.getElementById('someID').style.left=x_pos+'px';
+        y = document.getElementById('someID').style.top=y_pos+'px';
+        form(x_pos,y_pos);
+    }
+</script>
+
+<script>
+    var ids;
+    var idss;
+    var clas;
+    $(window).load(function(){
+        $("#form_panel").hide();
+        $(".store").hide();
+        var del_div = '<span class="del" id="del">DEL &nbsp</span>'
+        var close_div = '<span class="cls" id="cls"> CLOSE</span>'
+        $(".overshow").hide();
+        console.log("form panel");
+
+
+        $('#addTag').on('click',function (e) {  //creates span dynamically,called when clicked on addtag button
+            var append_string = '<span class="tags" id="'+$('#title').val()+'" data-y="'+y_pos+'" data-x="'+x_pos+'">'+$('#title').val()+' <span class="del" id="'+$('#title').val()+'" style="color:red">X</span></span>'
+            $('#demo').append(append_string);
+            var store_div = '<div class="store" id="'+$('#title').val()+'" data-y="'+y_pos+'" data-x="'+x_pos+'" style="top:'+y_pos+'px; left:'+x_pos+'px; position:absolute; width:100px; height:100px; border:3px solid white;color:white;">'+$('#title').val()+'</div>'
+            $('#pointer_div').append(store_div);
+
+            $('.store').hide('slow');
+            console.log("store_div");
+            $("#form_panel").hide('slow');
+            $("#someID").hide('slow');
+            var text = $('#title').val();
+            var data_y = y_pos;
+            var data_x = x_pos;
+            console.log("ajax is ahead");
+
+            $.ajax({                      // passing data to save in textfile
+                type: "POST", // post or get
+                url: 'save.php',
+                data: 'text='+text+'&x='+data_y+'&y='+data_x,
+                // dataType: "json",
+                success: function(e)
+                {
+                    // alert(e);
+                }
+            });
+
+        });
+
+
+        jQuery(".tags").live('click',function(){ //to show a tagged pose
+            ids = $(this).attr('id');
+            idss=ids;
+            console.log(ids);
+            var x_cord = $(this).attr('data-x');
+            var y_cord = $(this).attr('data-y');
+
+            $('#overshow').show('fast'); //.delay(1000).hide('slow');
+        });
+
+        jQuery(".tags").live('mouseenter',function(){ //tag name mouseenter
+            var idss = $(this).attr('id');
+            ids=idss;
+            console.log(idss);
+            var x_cord = $(this).attr('data-x');
+            var y_cord = $(this).attr('data-y');
+            $("#overshow").css({top: y_cord, left: x_cord, width:'100px', height:'100px', position:'absolute',border:'3px solid red'});
+            $('#overshow').show('slow'); //.delay(1000).hide('slow');
+
+        });
+        jQuery(".tags").live('mouseleave',function(){
+            $('#overshow').hide();
+            // $('#overshow').show('slow').delay(1000).hide('slow');
+        });
+
+        jQuery(".cls").live('click',function(){ //to close a overshow of tag
+            //alert("close");
+            $('.overshow').hide();
+        });
+
+        jQuery(".del").live('click',function(){ //to delete a tag
+            var idd=ids;
+            $('.overshow').hide();
+            $("#"+idss).remove();
+            $("#"+idss).remove();
+            $("#"+ids).remove();
+            $("#"+ids).remove();
+            $('.overshow').hide();
+
+            var data_y = y_pos;
+            var data_x = x_pos;
+
+            $.ajax({ // passing data to delete from textfile
+                type: "POST",  // post or get
+                url: 'save.php',
+                data: 'text1='+ids+'&x1='+data_y+'&y1='+data_x,
+                // dataType: "json",
+                success: function(e)
+                {
+                    // alert(e);
+                }
+            });
+
+        });
+
+
+        jQuery(".pointer_div").live('mouseenter',function(){ //image mouseenter
+            console.log("mouseenter on image");
+            $('.store').show();
+
+        });
+
+        jQuery(".pointer_div").live('mouseleave',function(){
+            // console.log("mouseleave");
+            $('.store').hide();
+            $('.overshow').hide();
+
+        });
+
+    })
+
+    function over(){
+
+        console.log("demo over");
+
+    }
+
+    function form(x_pos,y_pos){   // to create textbox, call from myFunction()
+        jQuery("#someID").show('slow');
+        var ele = document.getElementById('form_panel');
+        x_pos = x_pos - 25;
+        y_pos = y_pos - 80;
+        document.body.appendChild(form_panel);
+        document.getElementById('form_panel').style.width='180px';
+        document.getElementById('form_panel').style.height='70px';
+        document.getElementById('form_panel').style.background='#eee';
+        document.getElementById('form_panel').style.position = "absolute";
+        document.getElementById('form_panel').style.left=x_pos+'px';
+        document.getElementById('form_panel').style.top=y_pos+'px';
+        //console.log("form is showing in form()");
+        jQuery("#form_panel").show('slow');
+    }
+
+    function addTag(){
+
+        var text = document.getElementById('title').value; //value of text box
+        console.log(text);
+        var demoid = document.getElementById('demo'); //html of #demo
+        //console.log(demoid);
+        jQuery("#form_panel").hide('slow');
+        jQuery("#someID").hide('slow');
+    }
+
+    function cancel(){
+
+        $("#form_panel").hide('slow');
+        $("#someID").hide('slow');
+    }
+
+
+</script>
+
+</body>
+</html>

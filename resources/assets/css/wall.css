@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+
+html, body {
+    font-family: 'Lato', serif;
+}
+
+.navbar-default {
+    font-size: 1.15em;
+    font-weight: 400;
+    background-color: #006b96;
+    padding: 10px;
+    border: 0px;
+    border-radius: 0px;
+}
+
+.navbar-default .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    color: #cbf0ff;
+}
+
+.navbar-default .navbar-brand {
+    color: #002433;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #ffffff;
+    text-shadow: 1px -1px 8px #b3e9ff;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:hover, .navbar-default .navbar-nav>.open>a:focus {
+    background-color: #004059;
+    color: white;
+}
+
+.navbar-default .navbar-toggle {
+    border: none;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+    border: none;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+    background-color: #002433;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #ffffff;
+}
+
+.dropdown-menu {
+    background-color: #004059;
+    color: white;
+    border: 0px;
+    border-radius: 2px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.dropdown-menu>li>a {
+    background-color: #004059;
+    color: white;
+}
+
+.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+    background-color: #004059;
+    color:white;
+}
+
+.dropdown-menu .divider {
+    height: 1px;
+    margin: 9px 0;
+    overflow: hidden;
+    background-color: #003246;
+}
+
+.navbar-default .navbar-nav .open .dropdown-menu>li>a {
+    color: #ffffff;
+}
+
+@media (max-width: 767px) {
+    .dropdown-menu>li>a {
+        background-color: #006b96;
+        color: #ffffff;
+    }
+    .dropdown-menu>li>a:hover {
+        color: #ffffff;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu>li>a:focus, .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #ffffff;
+        background-color: transparent;
+    }
+
+    .dropdown-menu .divider {
+        height: 1px;
+        margin: 9px 0;
+        overflow: hidden;
+        background-color: #005577;
+    }
+} /* END Media Query */
+
+
+
+
+
+
+body{padding-top:30px;}
+
+.glyphicon {  margin-bottom: 10px;margin-right: 10px;}
+
+small {
+    display: block;
+    line-height: 1.428571429;
+    color: #999;
+}
+
+.navbar-default{
+    background-color: 	#C0C0C0;
+}
+
+
+
+/*
+.row{
+    width: 65em;
+}
+
+#hui3{
+    width: 15em;
+}*/
+
+
+.row{
+    width: 35em;
+    height: 28em;
+
+}
+
+#hui{
+    width: 15em;
+    margin-top:10em;
+    margin-left: 1em;
+}
+
+#hui3{
+    margin-left: 2.1em;
+    height:5em;
+}
+
+#qsha{
+    margin-top:30em;
+}
+
+#hui2{
+    display: inline-block;
+    width: 15em;
+
+}
+
+#hui4{
+    display: inline-block;
+    width: 15em;
+    height:30em;
+}
+
+#hui5{
+    display: inline-block;
+    width: 15em;
+    margin-left: -1em;
+}
+
+#profi{
+    height:200px;
+    width:150px;
+    margin-left: -0.7em;
+}
+
+.suggestions{
+    width:25em;
+    height: 20em;
+    /*border:2px solid black;*/
+    margin-left:68em;
+}
+
+#friend_pic{
+    height:50px;
+    width:50px;
+    float:left;
+}
+
+#friend_name{
+    margin-top:3em;
+}
+
+i {  vertical-align: middle; }
+.table-users tbody tr:hover {
+    cursor: pointer;
+    background-color: #eee;
+}
+.nav-user-photo {
+    vertical-align: middle;
+}
+.user_panel {
+    width: 50%;
+    margin-left: 7.3em;
+    height: 32em;
+}
+
+
+/*
+.panel-body, .panel-heading{
+    width: 24.7em;
+}
+*/
+
+.icon-button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+}
+
+
+#my_posts{
+    margin-top: 15em;
+    margin-left:21em;
+    width:73em;
+}
+
+.post2{
+    height: 17em;!important;
+
+}
+
+#bottom p {
+
+    margin:0;
+    padding:0;
+
+
+}
+
+
+.post{
+    width:10em;
+}
+
+#baba{
+    color: red;!important;
+    background-color: red;
+}
+
+.container-fluid{
+    color: red;!important;
+    background-color: red;
+}
